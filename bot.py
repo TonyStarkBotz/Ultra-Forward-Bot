@@ -41,7 +41,7 @@ class Bot(Client):
         self.username = me.username
         self.first_name = me.first_name
         self.set_parse_mode(ParseMode.DEFAULT)
-        text = "**Bot Restarted !**"
+        text = f"๏[-ิ_•ิ]๏ @{me.username} Restarted !"
         logging.info(text)
         success = failed = 0
         users = await db.get_all_frwd()
@@ -56,9 +56,12 @@ class Bot(Client):
               success += 1
            except Exception:
               failed += 1 
-    #    await self.send_message("venombotsupport", text)
+        await self.send_message("TonyStarkBotzXSupport", text)
         if (success + failed) != 0:
            await db.rmve_frwd(all=True)
+           app = web.AppRunner(await web_server())
+           await app.setup()
+           await web.TCPSite(app, "0.0.0.0", 8080).start()
            logging.info(f"Restart message status"
                  f"success: {success}"
                  f"failed: {failed}")
